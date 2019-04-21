@@ -12,17 +12,20 @@ namespace Console_Fighter
 {
     public partial class UI : Form
     {
-        public UI()
-        {
-            InitializeComponent();
-        }
         Fighter player;
         Fighter enemy;
         Random rnd = new Random();
-        Hit lightHit = new Hit(rnd.Next(1, 7), "Light jab.");
-        Hit mediumHit = new Hit(rnd.Next(3, 8), "Medium hit.");
-        Hit heavyHit = new Hit(rnd.Next(6, player.damage), "Heavy punch.");
         Hit enemyHeavyHit;
+        Hit lightHit;
+        Hit mediumHit;
+        Hit heavyHit;
+        public UI()
+        {
+            InitializeComponent();
+            lightHit = new Hit(rnd.Next(1, 7), "Light jab.");
+            mediumHit = new Hit(rnd.Next(3, 8), "Medium hit.");
+            heavyHit = new Hit(rnd.Next(6, player.damage), "Heavy punch.");
+        }
         public void Button1_Click(object sender, EventArgs e)
         {
             if (lightHit.damage - enemy.getArmor() <= 0)
