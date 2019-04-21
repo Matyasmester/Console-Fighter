@@ -1,0 +1,10 @@
+C:\Cs Projects\Console Fighter\Console Fighter\bin\Debug\Console Fighter.exe.config
+C:\Cs Projects\Console Fighter\Console Fighter\bin\Debug\Console Fighter.exe
+C:\Cs Projects\Console Fighter\Console Fighter\bin\Debug\Console Fighter.pdb
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.csprojAssemblyReference.cache
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.csproj.CoreCompileInputs.cache
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.exe
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.pdb
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console_Fighter.Properties.Resources.resources
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console_Fighter.UI.resources
+C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.csproj.GenerateResource.cache
