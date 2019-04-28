@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console Fighter", "Console Fighter\Console Fighter.csproj", "{38794D15-851F-4104-949B-33DFE3A6A257}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99361AAA-D3A6-4DB9-9F32-C06D4E5616D8}"
-	ProjectSection(SolutionItems) = preProject
-		Player.cs = Player.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

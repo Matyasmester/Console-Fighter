@@ -14,46 +14,145 @@ namespace Console_Fighter
     {
         Fighter player;
         Fighter enemy;
-        Random rnd = new Random();
-        Hit enemyHeavyHit;
-        Hit lightHit;
-        Hit mediumHit;
-        Hit heavyHit;
+        readonly Random rnd = new Random();
         public UI()
         {
             InitializeComponent();
-            lightHit = new Hit(rnd.Next(1, 7), "Light jab.");
-            mediumHit = new Hit(rnd.Next(3, 8), "Medium hit.");
-            heavyHit = new Hit(rnd.Next(6, player.damage), "Heavy punch.");
+            initFighters();
         }
-        public void Button1_Click(object sender, EventArgs e)
+
+        private void initFighters()
         {
-            if (lightHit.damage - enemy.getArmor() <= 0)
-            {
-                Console.WriteLine("Player misses a " + lightHit.name);
-            }
-            else
-            {
-                player.health -= (lightHit.damage - enemy.getArmor());
-                Console.WriteLine("Player hits with a " + lightHit.name);
-            }
+            initPlayer();
+            initEnemy("normal");
         }
+
+        private void initPlayer()
+        {
+            player = new Fighter(100, 30, "Jorge", 5, 20);
+            PlayerHP.Text = "Player HP: " + player.health;
+        }
+
+        private void initEnemy(string difficulty)
+        {
+            switch(difficulty)
+            {
+                case "easy":
+                    enemy = new Fighter(50, 20, "Ben", 0, 10);
+                    break;
+                case "hard":
+                    enemy = new Fighter(100, 100, "Kenny", 2, 30);
+                    break;
+                case "normal":  //let it fall through to default so we certainly set some difficulty.
+                default:
+                    enemy = new Fighter(75, 30, "Duck", 1, 20);
+                    break;
+            }
+            EnemyHP.Text = "Enemy HP: " + enemy.health;
+        }
+        
         private void EasyDiffButton_Click(object sender, EventArgs e)
         {
-            enemy = new Fighter(50, "Ben", 0, 10);
-            player = new Fighter(100, "Jorge", 5, 20);
+            initEnemy("easy");
         }
 
         private void MediumDiffButton_Click(object sender, EventArgs e)
         {
-            enemy = new Fighter(75, "Duck", 3, 20);
-            player = new Fighter(80, "Zopad", 2, 20);
+            initEnemy("kurvamindegymitirokide_mertdefaultlesz.");
         }
 
         private void HardDiffButton_Click(object sender, EventArgs e)
         {
-            enemy = new Fighter(100, "Kenny", 10, 30);
-            player = new Fighter(50, "A.J.", 0, 10);
+            initEnemy("hard");
         }
+        private void LightHitButton_Click(object sender, EventArgs e)
+        {
+            Hit playerHit = player.attackLight();
+            Hit enemyHit = generateEnemyHit(playerHit);
+            playRound(playerHit, enemyHit);
+        }
+
+        private void MediumHitButton_Click(object sender, EventArgs e)
+        {
+            Hit playerHit = player.attackMedium();
+            Hit enemyHit = generateEnemyHit(playerHit);     //this should not be copypasted. TODO: extract the part that repeats into method.
+            playRound(playerHit, enemyHit);
+        }
+
+        private void HeavyHitButton_Click(object sender, EventArgs e)
+        {
+            Hit playerHit = player.attackHard();
+            Hit enemyHit = generateEnemyHit(playerHit);
+            playRound(playerHit, enemyHit);
+        }
+
+        private Hit generateEnemyHit(Hit playerHit)
+        {
+            //world's dumbest AI, just creates a hit similar to what the player did.
+            Hit enemyHit;
+            if(5 > playerHit.damage)
+            {
+                enemyHit = enemy.attackLight();
+            } else if (12 > playerHit.damage)
+            {
+                enemyHit = enemy.attackMedium();
+            } else
+            {
+                enemyHit = enemy.attackHard();
+            }
+            return enemyHit;
+        }
+
+        private void playRound(Hit playerHit, Hit enemyHit)
+        {
+            //--------player attacks------------
+            int playerDamage = playerHit.damage - enemy.getArmor();
+            if (0 > playerDamage)
+            {
+                writeLineToTextBox( String.Format("\n %s evades the %s of %s.", enemy.name, playerHit.name, player.name));
+            } else
+            {
+                enemy.health -= playerDamage;
+                EnemyHP.Text = "Enemy HP: " + enemy.health;
+                writeLineToTextBox( String.Format("\n %s successfully hits %s for %d damage with a %s .", player.name, enemy.name, playerDamage, playerHit.name));
+            }
+            checkWinCondition();
+
+            //----------enemy attacks--------- TODO: extract these into a method because a lot is repeated here.
+            int enemyDamage = enemyHit.damage - player.getArmor();
+            if(0 > enemyDamage)
+            {
+                writeLineToTextBox( String.Format("\n %s evades the %s of %s.", player.name, enemyHit.name, enemy.name));
+            } else
+            {
+                player.health -= enemyDamage;
+                PlayerHP.Text = "Player HP: " + player.health;
+                //TODO: this formatting works, replace the others with it. Or, better, create a method for outputting text like this.
+                writeLineToTextBox(enemy.name + " successfully hits " + player.name + "for " + enemyDamage + " damage with a " + enemyHit.name +" .");
+            }
+            checkLoseCondition();
+        }
+
+        private void checkWinCondition()
+        {
+            if(0 > enemy.health)
+            {
+                writeLineToTextBox( String.Format("\n Congrats you win lol \n"));
+            }
+        }
+
+        private void checkLoseCondition()
+        {
+            if(0 > player.health)
+            {
+                writeLineToTextBox("\n We fuckin lost \n");    //todo improve this, like disable the buttons,.
+            }
+        }
+
+        private void writeLineToTextBox(String message)
+        {
+            StatusTB.AppendText("\n" + message + "\n");
+        }
+
     }
 }
