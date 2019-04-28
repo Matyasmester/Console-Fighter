@@ -8,3 +8,13 @@ C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.pdb
 C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console_Fighter.Properties.Resources.resources
 C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console_Fighter.UI.resources
 C:\Cs Projects\Console Fighter\Console Fighter\obj\Debug\Console Fighter.csproj.GenerateResource.cache
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console Fighter.csprojAssemblyReference.cache
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console_Fighter.Properties.Resources.resources
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console_Fighter.UI.resources
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console Fighter.csproj.GenerateResource.cache
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console Fighter.csproj.CoreCompileInputs.cache
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console Fighter.exe
+D:\_dev\Console-Fighter\Console Fighter\obj\Debug\Console Fighter.pdb
+D:\_dev\Console-Fighter\Console Fighter\bin\Debug\Console Fighter.exe.config
+D:\_dev\Console-Fighter\Console Fighter\bin\Debug\Console Fighter.exe
+D:\_dev\Console-Fighter\Console Fighter\bin\Debug\Console Fighter.pdb
