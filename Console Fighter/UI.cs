@@ -31,6 +31,19 @@ namespace Console_Fighter
         {
             player = new Fighter(100, 30, "Jorge", 5, 20);
             PlayerHP.Text = "Player HP: " + player.health;
+            StaminaLabel.Text = "Stamina: " + player.stamina;
+        }
+        private void disableDiffButtons()
+        {
+            EasyDiffButton.Enabled = false;
+            MediumDiffButton.Enabled = false;
+            HardDiffButton.Enabled = false;
+        }
+        private void disableAttackButtons()
+        {
+            LightHitButton.Enabled = false;
+            MediumHitButton.Enabled = false;
+            HeavyHitButton.Enabled = false;
         }
 
         private void initEnemy(string difficulty)
@@ -43,7 +56,7 @@ namespace Console_Fighter
                 case "hard":
                     enemy = new Fighter(100, 100, "Kenny", 2, 30);
                     break;
-                case "normal":  //let it fall through to default so we certainly set some difficulty.
+                case "normal":  //let it fall through to default so we certainly set some difficulty. (+)
                 default:
                     enemy = new Fighter(75, 30, "Duck", 1, 20);
                     break;
@@ -54,36 +67,63 @@ namespace Console_Fighter
         private void EasyDiffButton_Click(object sender, EventArgs e)
         {
             initEnemy("easy");
+            disableDiffButtons();
         }
 
-        private void MediumDiffButton_Click(object sender, EventArgs e)
+        private void MediumDiffButton_Click(object sender, EventArgs e) //improved difficulty choosing
         {
-            initEnemy("kurvamindegymitirokide_mertdefaultlesz.");
+            initEnemy("normal");
+            disableDiffButtons();
         }
 
         private void HardDiffButton_Click(object sender, EventArgs e)
         {
             initEnemy("hard");
+            disableDiffButtons();
+        }
+        private void Attack(string atkType)
+        {
+            Hit playerHit;
+            if (atkType == "light")
+            {
+                playerHit = player.attackLight();
+                player.stamina -= 1;
+            }
+            else if (atkType == "medium")
+            {
+                playerHit = player.attackMedium();
+                player.stamina -= 1;
+            }
+            else
+            {
+                if (player.stamina <= 3)
+                {
+                    writeLineToTextBox(player.name + " is too tired to do a heavy punch, he does a light jab instead.");
+                    playerHit = player.attackLight();
+                }
+                else
+                {
+                    playerHit = player.attackHard();
+                    player.stamina -= 3;
+                }
+            }
+            StaminaLabel.Text = "Stamina: " + player.stamina;
+            Hit enemyHit = generateEnemyHit(playerHit);
+            playRound(playerHit, enemyHit);
         }
         private void LightHitButton_Click(object sender, EventArgs e)
         {
-            Hit playerHit = player.attackLight();
-            Hit enemyHit = generateEnemyHit(playerHit);
-            playRound(playerHit, enemyHit);
+            Attack("light");
         }
 
         private void MediumHitButton_Click(object sender, EventArgs e)
         {
-            Hit playerHit = player.attackMedium();
-            Hit enemyHit = generateEnemyHit(playerHit);     //this should not be copypasted. TODO: extract the part that repeats into method.
-            playRound(playerHit, enemyHit);
+            Attack("medium");                                                   //this should not be copypasted. TODO: extract the part that repeats into method. (+) <-- means completed
         }
 
         private void HeavyHitButton_Click(object sender, EventArgs e)
         {
-            Hit playerHit = player.attackHard();
-            Hit enemyHit = generateEnemyHit(playerHit);
-            playRound(playerHit, enemyHit);
+            Attack("hard");
         }
 
         private Hit generateEnemyHit(Hit playerHit)
@@ -109,12 +149,12 @@ namespace Console_Fighter
             int playerDamage = playerHit.damage - enemy.getArmor();
             if (0 > playerDamage)
             {
-                writeLineToTextBox( String.Format("\n %s evades the %s of %s.", enemy.name, playerHit.name, player.name));
+                writeLineToTextBox(player.name + " evades " + enemy.name + "'s " + enemyHit.name + ".");
             } else
             {
                 enemy.health -= playerDamage;
                 EnemyHP.Text = "Enemy HP: " + enemy.health;
-                writeLineToTextBox( String.Format("\n %s successfully hits %s for %d damage with a %s .", player.name, enemy.name, playerDamage, playerHit.name));
+                writeLineToTextBox(player.name + " successfully hits " + enemy.name + " for " + playerDamage + " damage with a " + playerHit.name + " .");
             }
             checkWinCondition();
 
@@ -122,13 +162,13 @@ namespace Console_Fighter
             int enemyDamage = enemyHit.damage - player.getArmor();
             if(0 > enemyDamage)
             {
-                writeLineToTextBox( String.Format("\n %s evades the %s of %s.", player.name, enemyHit.name, enemy.name));
+                writeLineToTextBox(enemy.name + " evades " + player.name + "'s " + playerHit.name + ".");
             } else
             {
                 player.health -= enemyDamage;
                 PlayerHP.Text = "Player HP: " + player.health;
-                //TODO: this formatting works, replace the others with it. Or, better, create a method for outputting text like this.
-                writeLineToTextBox(enemy.name + " successfully hits " + player.name + "for " + enemyDamage + " damage with a " + enemyHit.name +" .");
+                //TODO: this formatting works, replace the others with it. Or, better, create a method for outputting text like this. (+-) <-- means will be improved later on
+                writeLineToTextBox(enemy.name + " successfully hits " + player.name + " for " + enemyDamage + " damage with a " + enemyHit.name +" .");
             }
             checkLoseCondition();
         }
@@ -138,14 +178,18 @@ namespace Console_Fighter
             if(0 > enemy.health)
             {
                 writeLineToTextBox( String.Format("\n Congrats you win lol \n"));
+                disableDiffButtons();
+                disableAttackButtons();
             }
         }
 
         private void checkLoseCondition()
         {
-            if(0 > player.health)
+            if(player.health <= 0)
             {
-                writeLineToTextBox("\n We fuckin lost \n");    //todo improve this, like disable the buttons,.
+                writeLineToTextBox("\n We fuckin lost \n");    //todo improve this, like disable the buttons,. (+)
+                disableDiffButtons();
+                disableAttackButtons();
             }
         }
 
