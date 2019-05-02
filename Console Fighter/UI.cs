@@ -178,7 +178,10 @@ namespace Console_Fighter
                 EnemyHP.Text = "Enemy HP: " + enemy.health;
                 writeLineToTextBox(player.name + " successfully hits " + enemy.name + " for " + playerDamage + " damage with a " + playerHit.name + " .");
             }
-            checkWinCondition();
+            if(checkWinCondition())
+            {
+                return;
+            }
 
             //----------enemy attacks--------- TODO: extract these into a method because a lot is repeated here.
             int enemyDamage = enemyHit.damage - player.getArmor();
@@ -191,27 +194,34 @@ namespace Console_Fighter
                 PlayerHP.Text = "Player HP: " + player.health;
                 writeLineToTextBox(enemy.name + " successfully hits " + player.name + " for " + enemyDamage + " damage with a " + enemyHit.name +" .");
             }
-            checkLoseCondition();
+            if(checkLoseCondition())
+            {
+                return;
+            }
         }
 
-        private void checkWinCondition()
+        private bool checkWinCondition()
         {
             if(0 > enemy.health)
             {
                 writeLineToTextBox( String.Format("\n Congrats you win lol \n"));
                 buttonStatus("diff", "disable");
                 buttonStatus("hit", "disable");
+                return true;
             }
+            return false;
         }
 
-        private void checkLoseCondition()
+        private bool checkLoseCondition()
         {
             if(player.health <= 0)
             {
                 writeLineToTextBox("\n We fuckin lost \n");
                 buttonStatus("diff", "disable");
                 buttonStatus("hit", "disable");
+                return true;
             }
+            return false;
         }
 
         private void writeLineToTextBox(String message)
