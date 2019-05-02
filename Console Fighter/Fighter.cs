@@ -21,7 +21,6 @@ public class Fighter
 
     public Hit attackLight()
     {
-        //TODO make attacks reduce stamina. and not heavy allow attacking below a threshold. (+)
         Hit hit = new Hit(damage / 3 + getRandom(2, 5, 2), "Light jab.");
         return hit;
     }

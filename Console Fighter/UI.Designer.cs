@@ -41,14 +41,14 @@
             this.PlayerHP = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.StatusTB = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.StaminaLabel = new System.Windows.Forms.Label();
+            this.NewGameButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // LightHitButton
             // 
-            this.LightHitButton.Location = new System.Drawing.Point(552, 78);
+            this.LightHitButton.Location = new System.Drawing.Point(552, 50);
             this.LightHitButton.Name = "LightHitButton";
             this.LightHitButton.Size = new System.Drawing.Size(158, 81);
             this.LightHitButton.TabIndex = 0;
@@ -58,7 +58,7 @@
             // 
             // MediumHitButton
             // 
-            this.MediumHitButton.Location = new System.Drawing.Point(552, 218);
+            this.MediumHitButton.Location = new System.Drawing.Point(552, 152);
             this.MediumHitButton.Name = "MediumHitButton";
             this.MediumHitButton.Size = new System.Drawing.Size(158, 81);
             this.MediumHitButton.TabIndex = 1;
@@ -68,7 +68,7 @@
             // 
             // HeavyHitButton
             // 
-            this.HeavyHitButton.Location = new System.Drawing.Point(552, 358);
+            this.HeavyHitButton.Location = new System.Drawing.Point(552, 259);
             this.HeavyHitButton.Name = "HeavyHitButton";
             this.HeavyHitButton.Size = new System.Drawing.Size(158, 80);
             this.HeavyHitButton.TabIndex = 2;
@@ -87,7 +87,7 @@
             // 
             // EasyDiffButton
             // 
-            this.EasyDiffButton.Location = new System.Drawing.Point(346, 78);
+            this.EasyDiffButton.Location = new System.Drawing.Point(346, 50);
             this.EasyDiffButton.Name = "EasyDiffButton";
             this.EasyDiffButton.Size = new System.Drawing.Size(151, 81);
             this.EasyDiffButton.TabIndex = 5;
@@ -96,7 +96,7 @@
             // 
             // MediumDiffButton
             // 
-            this.MediumDiffButton.Location = new System.Drawing.Point(346, 218);
+            this.MediumDiffButton.Location = new System.Drawing.Point(346, 152);
             this.MediumDiffButton.Name = "MediumDiffButton";
             this.MediumDiffButton.Size = new System.Drawing.Size(151, 81);
             this.MediumDiffButton.TabIndex = 6;
@@ -106,7 +106,7 @@
             // 
             // HardDiffButton
             // 
-            this.HardDiffButton.Location = new System.Drawing.Point(346, 358);
+            this.HardDiffButton.Location = new System.Drawing.Point(346, 259);
             this.HardDiffButton.Name = "HardDiffButton";
             this.HardDiffButton.Size = new System.Drawing.Size(151, 80);
             this.HardDiffButton.TabIndex = 7;
@@ -155,7 +155,7 @@
             this.panel1.Controls.Add(this.EnemyHP);
             this.panel1.Controls.Add(this.PlayerHP);
             this.panel1.Location = new System.Drawing.Point(16, 342);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(242, 108);
             this.panel1.TabIndex = 13;
@@ -164,21 +164,12 @@
             // 
             this.StatusTB.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.StatusTB.Location = new System.Drawing.Point(16, 60);
-            this.StatusTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StatusTB.Margin = new System.Windows.Forms.Padding(2);
             this.StatusTB.Multiline = true;
             this.StatusTB.Name = "StatusTB";
             this.StatusTB.ReadOnly = true;
             this.StatusTB.Size = new System.Drawing.Size(242, 268);
             this.StatusTB.TabIndex = 14;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "label1";
             // 
             // StaminaLabel
             // 
@@ -189,14 +180,24 @@
             this.StaminaLabel.TabIndex = 16;
             this.StaminaLabel.Text = "Stamina: ";
             // 
+            // NewGameButton
+            // 
+            this.NewGameButton.Location = new System.Drawing.Point(346, 358);
+            this.NewGameButton.Name = "NewGameButton";
+            this.NewGameButton.Size = new System.Drawing.Size(364, 80);
+            this.NewGameButton.TabIndex = 17;
+            this.NewGameButton.Text = "New Game";
+            this.NewGameButton.UseVisualStyleBackColor = true;
+            this.NewGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkKhaki;
             this.ClientSize = new System.Drawing.Size(800, 461);
+            this.Controls.Add(this.NewGameButton);
             this.Controls.Add(this.StaminaLabel);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.StatusTB);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Hit);
@@ -233,7 +234,7 @@
         private System.Windows.Forms.Label PlayerHP;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox StatusTB;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label StaminaLabel;
+        private System.Windows.Forms.Button NewGameButton;
     }
 }

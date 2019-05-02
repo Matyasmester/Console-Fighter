@@ -33,17 +33,38 @@ namespace Console_Fighter
             PlayerHP.Text = "Player HP: " + player.health;
             StaminaLabel.Text = "Stamina: " + player.stamina;
         }
-        private void disableDiffButtons()
+        private void buttonStatus(string type, string status)
         {
-            EasyDiffButton.Enabled = false;
-            MediumDiffButton.Enabled = false;
-            HardDiffButton.Enabled = false;
-        }
-        private void disableAttackButtons()
-        {
-            LightHitButton.Enabled = false;
-            MediumHitButton.Enabled = false;
-            HeavyHitButton.Enabled = false;
+            if (type == "diff")
+            {
+                if (status == "disable")
+                {
+                    EasyDiffButton.Enabled = false;
+                    MediumDiffButton.Enabled = false;
+                    HardDiffButton.Enabled = false;
+                }
+                else if (status == "enable")
+                {
+                    EasyDiffButton.Enabled = true;
+                    MediumDiffButton.Enabled = true;
+                    HardDiffButton.Enabled = true;
+                }
+            }
+            else if (type == "hit")
+            {
+                if (status == "disable")
+                {
+                    LightHitButton.Enabled = false;
+                    MediumHitButton.Enabled = false;
+                    HeavyHitButton.Enabled = false;
+                }
+                else if (status == "enable")
+                {
+                    LightHitButton.Enabled = true;
+                    MediumHitButton.Enabled = true;
+                    HeavyHitButton.Enabled = true;
+                }
+            }
         }
 
         private void initEnemy(string difficulty)
@@ -56,7 +77,7 @@ namespace Console_Fighter
                 case "hard":
                     enemy = new Fighter(100, 100, "Kenny", 2, 30);
                     break;
-                case "normal":  //let it fall through to default so we certainly set some difficulty. (+)
+                case "normal":  
                 default:
                     enemy = new Fighter(75, 30, "Duck", 1, 20);
                     break;
@@ -67,19 +88,19 @@ namespace Console_Fighter
         private void EasyDiffButton_Click(object sender, EventArgs e)
         {
             initEnemy("easy");
-            disableDiffButtons();
+            buttonStatus("diff", "disable");
         }
 
-        private void MediumDiffButton_Click(object sender, EventArgs e) //improved difficulty choosing
+        private void MediumDiffButton_Click(object sender, EventArgs e) 
         {
             initEnemy("normal");
-            disableDiffButtons();
+            buttonStatus("diff", "disable");
         }
 
         private void HardDiffButton_Click(object sender, EventArgs e)
         {
             initEnemy("hard");
-            disableDiffButtons();
+            buttonStatus("diff", "disable");
         }
         private void Attack(string atkType)
         {
@@ -118,7 +139,7 @@ namespace Console_Fighter
 
         private void MediumHitButton_Click(object sender, EventArgs e)
         {
-            Attack("medium");                                                   //this should not be copypasted. TODO: extract the part that repeats into method. (+) <-- means completed
+            Attack("medium");                                                   
         }
 
         private void HeavyHitButton_Click(object sender, EventArgs e)
@@ -126,6 +147,7 @@ namespace Console_Fighter
             Attack("hard");
         }
 
+        
         private Hit generateEnemyHit(Hit playerHit)
         {
             //world's dumbest AI, just creates a hit similar to what the player did.
@@ -167,7 +189,6 @@ namespace Console_Fighter
             {
                 player.health -= enemyDamage;
                 PlayerHP.Text = "Player HP: " + player.health;
-                //TODO: this formatting works, replace the others with it. Or, better, create a method for outputting text like this. (+-) <-- means will be improved later on
                 writeLineToTextBox(enemy.name + " successfully hits " + player.name + " for " + enemyDamage + " damage with a " + enemyHit.name +" .");
             }
             checkLoseCondition();
@@ -178,8 +199,8 @@ namespace Console_Fighter
             if(0 > enemy.health)
             {
                 writeLineToTextBox( String.Format("\n Congrats you win lol \n"));
-                disableDiffButtons();
-                disableAttackButtons();
+                buttonStatus("diff", "disable");
+                buttonStatus("hit", "disable");
             }
         }
 
@@ -187,9 +208,9 @@ namespace Console_Fighter
         {
             if(player.health <= 0)
             {
-                writeLineToTextBox("\n We fuckin lost \n");    //todo improve this, like disable the buttons,. (+)
-                disableDiffButtons();
-                disableAttackButtons();
+                writeLineToTextBox("\n We fuckin lost \n");
+                buttonStatus("diff", "disable");
+                buttonStatus("hit", "disable");
             }
         }
 
@@ -198,5 +219,13 @@ namespace Console_Fighter
             StatusTB.AppendText("\n" + message + "\n");
         }
 
+        private void NewGameButton_Click(object sender, EventArgs e)
+        {
+            buttonStatus("diff", "enable");
+            buttonStatus("hit", "enable");
+            initEnemy("easy");
+            initPlayer();
+            StatusTB.Clear();
+        }
     }
 }
